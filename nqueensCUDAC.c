@@ -44,17 +44,12 @@ int main() {
     int total_solutions_host = 0;
     struct timeval start, end;
     double total_time;
-
-    // Start timer
+    //timer starts
     gettimeofday(&start, NULL);
 
-    // Launch kernel with one thread per queen position for the first row
     queens<<<1, N>>>();
-
-    // Retrieve the total solutions
     cudaMemcpyFromSymbol(&total_solutions_host, totalsolutions, sizeof(int), 0, cudaMemcpyDeviceToHost);
 
-    // End timer
     gettimeofday(&end, NULL);
     total_time = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
 
